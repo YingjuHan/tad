@@ -23,6 +23,7 @@
     "watch-prod": "webpack --env prod --mode production --watch",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --publish=never",
+    "dist:win": "electron-builder --win portable --x64 --publish=never --config.npmRebuild=false --config.win.signAndEditExecutable=false",
     "dist-arm64": "electron-builder --arm64 --publish=never",
     "prepublish": "npm run build",
     "publish": "electron-builder",
@@ -171,6 +172,12 @@
     "nodeGypRebuild": false,
     "nsis": {
       "oneClick": false
+    },
+    "portable": {
+      "artifactName": "tad.exe"
+    },
+    "win": {
+      "icon": "res/AppIcon1024.png"
     },
     "productName": "Tad"
   }

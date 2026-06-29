@@ -16,6 +16,9 @@
     "@types/minimatch": "3.0.5"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist --force-local --ignore-prepublish -- --legacy-peer-deps"
+    "bootstrap": "lerna bootstrap --hoist --force-local --ignore-prepublish -- --legacy-peer-deps",
+    "build": "node tools/buildAll.js",
+    "build:desktop": "node tools/buildAll.js --desktop",
+    "release:win": "npm run build:desktop && npm --prefix packages/tad-app run dist:win"
   }
 }

@@ -22,9 +22,27 @@ const allPackages = basePackages.concat(
   componentPackages,
   appPackages
 );
+const desktopPackages = basePackages.concat(
+  driverPackages,
+  componentPackages,
+  ["tad-app"]
+);
+
+function getPackagesToBuild() {
+  const mode = process.argv[2] || "--all";
+  if (mode === "--all") {
+    return allPackages;
+  }
+  if (mode === "--desktop") {
+    return desktopPackages;
+  }
+  console.error(`unknown build mode: ${mode}`);
+  console.error("usage: node tools/buildAll.js [--all|--desktop]");
+  exit(1);
+}
 
 async function main() {
-  for (pkg of allPackages) {
+  for (const pkg of getPackagesToBuild()) {
     console.log(`building: ${pkg}:`);
     const pkgDir = path.join(process.cwd(), "packages", pkg);
     const { error, stdout, stderr } = await exec("npm run build", {

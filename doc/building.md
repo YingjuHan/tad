@@ -28,6 +28,27 @@ After bootstrapping, run the following script to try and build everything, inclu
 
     $ ./tools/build-all.sh
 
+On any platform with Node installed, the same package build can also be run with:
+
+    $ npm run build
+
+## Building a local Windows tad.exe release
+
+On Windows, after installing dependencies and bootstrapping the repo, run this from the repository root:
+
+    $ npm run release:win
+
+This builds the desktop app dependency chain and then runs Electron Builder for the Tad desktop app using the Windows portable target. The packaging step skips the second native dependency rebuild because the app build already runs `electron-builder install-app-deps`. The release executable is written to:
+
+    packages/tad-app/dist/tad.exe
+
+The local portable executable is unsigned. Use the existing `npm run publish` flow from `packages/tad-app` when building a signed release with signing credentials.
+
+If all packages are already built, you can rebuild only the Windows executable from the desktop app package:
+
+    $ cd packages/tad-app
+    $ npm run dist:win
+
 ## Trying the Desktop app
 
     $ cd packages/tad-app
