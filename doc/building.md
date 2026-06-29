@@ -38,7 +38,12 @@ On Windows, after installing dependencies and bootstrapping the repo, run this f
 
     $ npm run release:win
 
-This builds the desktop app dependency chain and then runs Electron Builder for the Tad desktop app using the Windows portable target. The packaging step skips the second native dependency rebuild because the app build already runs `electron-builder install-app-deps`. The release executable is written to:
+This builds the desktop app dependency chain and then runs Electron Builder for the Tad desktop app using the Windows portable target. The packaging step skips the second native dependency rebuild because the app build already runs `electron-builder install-app-deps`. It also uses only local resources:
+
+- `node_modules/electron/dist` for the Electron runtime
+- `vendor/electron-builder-cache/nsis` for NSIS and NSIS resources
+
+If the local offline cache is missing, the build fails immediately instead of downloading artifacts from the network. The release executable is written to:
 
     packages/tad-app/dist/tad.exe
 
